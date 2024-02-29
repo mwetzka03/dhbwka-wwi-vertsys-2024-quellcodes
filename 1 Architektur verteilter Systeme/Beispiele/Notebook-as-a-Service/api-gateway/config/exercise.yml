@@ -78,9 +78,9 @@ rules:
       # Load Balancing: Liste der Zielserver
       # Hier später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
       forward-to: 
-        - http://localhost:8020
-        #- http://localhost:8021
-        #- http://localhost:8022
+        - http://192.168.2.114:8020
+        - http://192.168.2.114:8021
+        - http://192.168.2.114:8022
       
       # Nachfolgende Regeln ignorieren
       finish: true
@@ -90,7 +90,7 @@ rules:
       method: [GET, POST, PUT, PATCH, DELETE]
     then:
       # Hier später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
-      forward-to: [http://localhost:8030]
+      forward-to: [http://192.168.2.114:8030]
       finish: true
 
   #-----------------------------------------------------------------------------------------------
