@@ -1,3 +1,5 @@
+import {db} from "../database.js";
+
 /**
  * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
@@ -5,16 +7,19 @@
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
-    app.get("/api/gateway", getGatewayUrl);
+    // Ganze Collection
+    app.get("/api/language", getAllLanguages);
 };
 
 /**
- * URL des API-Gateways abrufen.
+ * Liste der unterstützten Programmiersprachen für das Syntax Highlighting abrufen.
  *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
-function getGatewayUrl(req, res) {
-    res.set("content-type", "text/plain");
-    res.send(process.env.GATEWAY_URL);
+function getAllLanguages(req, res) {
+    let result = db.data.Language;
+
+    res.status(200);
+    res.send(result);
 }

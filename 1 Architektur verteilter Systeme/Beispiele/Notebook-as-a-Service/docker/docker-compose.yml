@@ -1,0 +1,101 @@
+#=========================================================================
+# Docker Compose File für das Beispieldeployment auf zimolong.eu.
+#
+# Dadurch können die Studierenden die online bereitgestellten Service
+# ntuzen, wenn eine Ausführung auf zwei Computern nicht möglich ist.
+#=========================================================================
+version: "3.9"
+
+services:
+  # Frontend Server
+  frontend:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8000
+      GATEWAY_URL: http://zimolong.eu:8010/
+    ports:
+      # Host:Container
+      - 8000:8000
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd frontend; npm start"
+
+  # API-Gateway
+  api-gateway:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8010
+    ports:
+      # Host:Container
+      - 8010:8010
+    volumes:
+      - ../:/app
+      - ./gateway-config.yml:/app/api-gateway/config/gateway-config.yml
+    working_dir: /app
+    command: sh -c "npm i; cd api-gateway; node src/main.js -c config/gateway-config.yml"
+  
+  # Katalog-Backend 1
+  catalogue-backend1:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8020
+    ports:
+      # Host:Container
+      - 8020:8020
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd catalogue-backend; npm start"
+  
+  # Katalog-Backend 2
+  catalogue-backend2:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8021
+    ports:
+      # Host:Container
+      - 8021:8021
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd catalogue-backend; npm run start1"
+
+  # Katalog-Backend 3
+  catalogue-backend3:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8022
+    ports:
+      # Host:Container
+      - 8022:8022
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd catalogue-backend; npm run start2"
+  
+  # Auftrags-Backend
+  order-backend:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8030
+      CATALOGUE_URL: http://api-gateway:8010/api/catalogue/
+    ports:
+      # Host:Container
+      - 8030:8030
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd order-backend; npm start"

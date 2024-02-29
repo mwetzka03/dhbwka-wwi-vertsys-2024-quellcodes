@@ -31,7 +31,7 @@ Fallbeispiel: Notebook as a Service
     </tr>
 </table>
 
-Bilder zum Vergößern bitte anklicken.
+Bilder zum Vergrößern bitte anklicken.
 
 
 Kurzbeschreibung
@@ -184,7 +184,7 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
            </td>
            <td>
                Konsolenfenster 2
-               <pre>cd api-gateway<br>npm start:exercise</pre>
+               <pre>cd api-gateway<br>npm run start:exercise</pre>
            </td>
            <td></td>
            <td></td>
@@ -199,11 +199,11 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
            </td>
            <td>
                Konsolenfenster 2
-               <pre>cd catalogue-service<br>npm start1</pre>
+               <pre>cd catalogue-service<br>npm run start1</pre>
            </td>
            <td>
                Konsolenfenster 3
-               <pre>cd catalogue-service<br>npm start2</pre>
+               <pre>cd catalogue-service<br>npm run start2</pre>
            </td>
            <td>
                Konsolenfenster 4
